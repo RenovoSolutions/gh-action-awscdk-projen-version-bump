@@ -2,7 +2,7 @@
 name: 'Update Projen for Latest AWS CDK Release Version'
 description: 'Get the latest released version of the AWS CDK filtered by a specific major version and updates the projen rc file accordingly'
 inputs:
-  major_version:
+  major-version:
     description: 'The major version to get the latest release version for'
     required: true
     default: '2'
