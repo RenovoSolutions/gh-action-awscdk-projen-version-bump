@@ -6,8 +6,45 @@ inputs:
     description: 'The major version to get the latest release version for'
     required: true
     default: '2'
+outputs:
+  patch_created:
+    description: 'Were changes made?'
+    value: patch_created
+  build_conclusion:
+    description: 'Did the post change build succeed?'
+    value: build_conclusion
 runs:
   using: 'composite'
   steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: master
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.2.0
+      with:
+        node-version: 14.17.0
+    - name: Install dependencies
+      run: yarn install --check-files --frozen-lockfile
+      shell: bash
     - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }}
       shell: bash
+    - name: Build
+      id: build
+      shell: bash
+      run: npx projen build && echo "::set-output name=build_conclusion::success" || echo
+        "::set-output name=build_conclusion::failure"
+    - if: steps.build.outputs.build_conclusion == 'success'
+      id: create_patch
+      name: Find mutations
+      shell: bash
+      run: >-
+        git add .
+
+        git diff --staged --patch --exit-code > .repo.patch || echo "::set-output name=patch_created::true"
+    - if: steps.create_patch.outputs.patch_created
+      name: Upload patch
+      uses: actions/upload-artifact@v2
+      with:
+        name: .repo.patch
+        path: .repo.patch
