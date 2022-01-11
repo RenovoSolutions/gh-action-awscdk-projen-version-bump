@@ -9,6 +9,16 @@ This action gets the latest AWS CDK release version for a given major version of
 
 **Required** The major version to get releases for.
 
+## Outputs
+
+## `build_conclusion`
+
+`success` or `failure` for the build after upgrade
+
+## `patch_created`
+
+`true` if changes were made and a patch was created
+
 ## Example usage
 
 ```
