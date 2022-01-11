@@ -20,7 +20,7 @@ else
   sed -i "s/cdkVersion: '$local_version'/cdkVersion: '$release_version'/g" .projenrc.js
   # remove the lock file so we can update appropriately for the new CDK version
   rm yarn.lock
-  if npx projen && jest test; then
+  if npx projen && npx jest test; then
     echo "CDK version upgraded successfully"
   else
     echo "CDK version upgrade failed"
