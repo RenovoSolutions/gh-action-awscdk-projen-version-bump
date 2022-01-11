@@ -12,7 +12,11 @@ This action gets the latest AWS CDK release version for a given major version of
 ## Example usage
 
 ```
-uses: renovosolutions/gh-action-awscdk-projen-version-bump@v1
+uses: renovosolutions/gh-action-awscdk-projen-version-bump@v2
 with:
   major-version: 2
 ```
+
+## Notes
+
+Be sure to run something like [`shellcheck`](https://github.com/koalaman/shellcheck) on the script when making changes.

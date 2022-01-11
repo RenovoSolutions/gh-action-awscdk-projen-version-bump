@@ -7,7 +7,7 @@ inputs:
     required: true
     default: '2'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.major-version }}
+  using: 'composite'
+  steps:
+    - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }}
+      shell: bash
