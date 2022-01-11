@@ -27,7 +27,7 @@ runs:
     - name: Install dependencies
       run: yarn install --check-files --frozen-lockfile
       shell: bash
-    - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }} || echo "Cant find upgrade script" && ls -la ${{ github.action_path }} && exit 1
+    - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }} || echo "Cant find upgrade script" && pwd && find / -type f -name 'update_cdk_version_in_projen.sh' && exit 1
       shell: bash
     - name: Build
       id: build
