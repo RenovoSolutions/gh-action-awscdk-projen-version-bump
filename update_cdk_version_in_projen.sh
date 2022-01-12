@@ -17,6 +17,8 @@ if [  "$release_version" = "$local_version" ]; then
   echo "No need to upgrade CDK version"
 else
   echo "Upgrading CDK version from $local_version to $release_version"
+  echo "::set-output name=previous_version::$local_version"
+  echo "::set-output name=new_version::$release_version"
   sed -i "s/cdkVersion: '$local_version'/cdkVersion: '$release_version'/g" .projenrc.js
   # remove the lock file so we can update appropriately for the new CDK version
   rm yarn.lock

@@ -19,6 +19,17 @@ This action gets the latest AWS CDK release version for a given major version of
 
 `true` if changes were made and a patch was created
 
+## `previous_version`
+The version of AWS CDK the projen file contained before this action was run.
+
+## `new_version`
+The version of AWS CDK the upgrade script changes the projen file to during this action.
+
+## `patch_name`
+The name of the patch created if a patch is created.
+
+**Always** `.repo.patch`
+
 ## Example usage
 
 ```

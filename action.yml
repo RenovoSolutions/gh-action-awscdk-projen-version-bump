@@ -13,6 +13,15 @@ outputs:
   build_conclusion:
     description: 'Did the post change build succeed?'
     value: ${{ steps.build.outputs.build_conclusion }}
+  previous_version:
+    description: 'The version of AWS CDK the projen file contained before this action was run.'
+    value: ${{ steps.version_upgrade.outputs.previous_version }}
+  new_version:
+    description: 'The version of AWS CDK the upgrade script changes the projen file to during this action.'
+    value: ${{ steps.version_upgrade.outputs.new_version }}
+  patch_name:
+    description: 'The name of the patch created if a patch is created'
+    value: .repo.patch
 runs:
   using: 'composite'
   steps:
@@ -28,6 +37,7 @@ runs:
       run: yarn install --check-files --frozen-lockfile
       shell: bash
     - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }}
+      id: version_upgrade
       shell: bash
     - name: Build
       id: build
