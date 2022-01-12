@@ -34,7 +34,7 @@ runs:
       with:
         node-version: 14.17.0
     - name: Install dependencies
-      run: yarn install --check-files --frozen-lockfile
+      run: yarn install --check-files
       shell: bash
     - run: ${{ github.action_path }}/update_cdk_version_in_projen.sh ${{ inputs.major-version }}
       id: version_upgrade
