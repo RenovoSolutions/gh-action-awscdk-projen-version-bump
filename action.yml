@@ -9,10 +9,10 @@ inputs:
 outputs:
   patch_created:
     description: 'Were changes made?'
-    value: patch_created
+    value: ${{ steps.create_patch.outputs.patch_created }}
   build_conclusion:
     description: 'Did the post change build succeed?'
-    value: build_conclusion
+    value: ${{ steps.build.outputs.build_conclusion }}
 runs:
   using: 'composite'
   steps:
