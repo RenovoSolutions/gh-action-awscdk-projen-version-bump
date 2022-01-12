@@ -6,6 +6,10 @@ inputs:
     description: 'The major version to get the latest release version for'
     required: true
     default: '2'
+  ref:
+    description: 'The target branch to run this action against.'
+    required: true
+    default: 'main'
 outputs:
   patch_created:
     description: 'Were changes made?'
@@ -28,7 +32,7 @@ runs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: master
+        ref: ${{ inputs.ref }}
     - name: Setup Node.js
       uses: actions/setup-node@v2.2.0
       with:

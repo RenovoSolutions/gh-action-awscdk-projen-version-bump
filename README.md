@@ -9,6 +9,9 @@ This action gets the latest AWS CDK release version for a given major version of
 
 **Required** The major version to get releases for.
 
+## `ref`
+**Required** The target branch to run this action against.
+
 ## Outputs
 
 ## `build_conclusion`
