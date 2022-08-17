@@ -1,4 +1,5 @@
 # gh-action-awscdk-projen-version-bump
+
 ## Get latest AWS CDK release and update projen docker actions
 
 This action gets the latest AWS CDK release version for a given major version of the AWS CDK and then updates the projects [projen](https://github.com/projen/projen) configuration to use this new version.
@@ -10,7 +11,12 @@ This action gets the latest AWS CDK release version for a given major version of
 **Required** The major version to get releases for.
 
 ## `ref`
+
 **Required** The target branch to run this action against.
+
+## `node-version`
+
+**Optional** The version of node to set up. Defaults to `14.18.0`
 
 ## Outputs
 
@@ -23,19 +29,22 @@ This action gets the latest AWS CDK release version for a given major version of
 `true` if changes were made and a patch was created
 
 ## `previous_version`
+
 The version of AWS CDK the projen file contained before this action was run.
 
 ## `new_version`
+
 The version of AWS CDK the upgrade script changes the projen file to during this action.
 
 ## `patch_name`
+
 The name of the patch created if a patch is created.
 
 **Always** `.repo.patch`
 
 ## Example usage
 
-```
+```yml
 uses: renovosolutions/gh-action-awscdk-projen-version-bump@v2
 with:
   major-version: 2

@@ -10,6 +10,10 @@ inputs:
     description: 'The target branch to run this action against.'
     required: true
     default: 'main'
+  node-version:
+    description: 'The version of node to set up'
+    required: false
+    default: 14.18.0
 outputs:
   patch_created:
     description: 'Were changes made?'
@@ -36,7 +40,7 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v2.2.0
       with:
-        node-version: 14.17.0
+        node-version: ${{ inputs.node-version }}
     - name: Install dependencies
       run: yarn install --check-files
       shell: bash
