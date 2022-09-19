@@ -11,7 +11,16 @@ if echo "$2" | grep -Eq '^[0-9]+$'; then
 fi
 
 release_version=$( curl -sL https://api.github.com/repos/aws/aws-cdk/releases | jq -r .[].tag_name | grep "v$1" | sort -V -r | head -1 | sed 's/v//' )
-local_version=$( grep cdkVersion .projenrc.js | awk ' { print $2 } ' | sed -e "s/'//g" -e 's/,//' )
+local_file='.projenrc.js'
+if [ ! -f "${local_file}" ]; then
+  if [ -f ".projenrc.ts" ]; then
+    local_file=".projenrc.ts"
+  else
+    echo "Error: ${local_file} not found and could not find .projenrc.ts alternative"
+    exit 1
+  fi
+fi
+local_version=$( grep cdkVersion ${localfile} | awk ' { print $2 } ' | sed -e "s/'//g" -e 's/,//' )
 
 if [  "$release_version" = "$local_version" ]; then
   echo "No need to upgrade CDK version"
