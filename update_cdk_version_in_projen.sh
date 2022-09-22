@@ -20,7 +20,7 @@ if [ ! -f "${local_file}" ]; then
     exit 1
   fi
 fi
-local_version=$( grep cdkVersion ${localfile} | awk ' { print $2 } ' | sed -e "s/'//g" -e 's/,//' )
+local_version=$( grep cdkVersion ${local_file} | awk ' { print $2 } ' | sed -e "s/'//g" -e 's/,//' )
 
 if [  "$release_version" = "$local_version" ]; then
   echo "No need to upgrade CDK version"
@@ -28,7 +28,7 @@ else
   echo "Upgrading CDK version from $local_version to $release_version"
   echo "::set-output name=previous_version::$local_version"
   echo "::set-output name=new_version::$release_version"
-  sed -i "s/cdkVersion: '$local_version'/cdkVersion: '$release_version'/g" .projenrc.js
+  sed -i "s/cdkVersion: '$local_version'/cdkVersion: '$release_version'/g" ${local_file}
   # # remove the lock file so we can update appropriately for the new CDK version
   # rm yarn.lock
   if npx projen --no-post && yarn install && npx jest test; then
